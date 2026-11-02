@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhamad Rizki Kusmiadi</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="nav-container">
+        <h3>Muhamad Rizki Kusmiadi</h3>
+        <img class="logo" src="assets/img/waguri.jpg">
+        <nav>
+            <ul class="nav">
+                <li><a href="#beranda">Beranda</a></li>
+                <li><a href="#tentang">Tentang</a></li>
+                <li><a href="#portfolio">Portofolio</a></li>
+                <li><a href="#pendidikan">Pendidikan</a></li>
+                <li><a href="#pengalaman">Pengalaman</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <hr style="border: 10px; height: 10; border-top: 10px solid rgba(0, 0, 0, 0.1); border-bottom: 10px solid rgba(255, 255, 255, 0.3); margin: 30px 0;">
+
+    <main>
+        <section id="beranda">
+            <h2>Beranda</h2>
+            <article>
+                <h3>Selamat Datang</h3>
+                <p>Selamat datang di situs web saya. Saya adalah Muhamad Rizki Kusmiadi, seorang pengembang web yang bersemangat dalam menciptakan pengalaman digital yang menarik dan fungsional.</p>
+            </article>
+        </section>
+
+        <section id="tentang">
+            <h2>Tentang</h2>
+            <article>
+                <h3>Tentang Saya</h3>
+                <p>Saya memiliki pengalaman dalam pengembangan web dan desain antarmuka pengguna. Saya selalu berusaha untuk meningkatkan keterampilan saya dan mengikuti tren terbaru dalam industri ini.</p>
+            </article>
+        </section>
+
+        <section id="portfolio">
+            <h2>Portofolio</h2>
+            <article>
+                <h3>Proyek Terbaru</h3>
+                <p>Berikut adalah beberapa proyek terbaru yang telah saya kerjakan. Setiap proyek mencerminkan dedikasi saya terhadap kualitas dan inovasi.</p>
+            </article>
+        </section>
+
+        <section id="pendidikan">
+            <h2>Pendidikan</h2>
+            <article>
+                <h3>Latar Belakang Pendidikan</h3>
+                <p>Saya memiliki latar belakang pendidikan di bidang teknologi informasi, yang telah memberikan dasar yang kuat untuk karier saya dalam pengembangan web.</p>
+                <img class="sekolah" src="assets/img/sd.png">
+                <img class="sekolah" src="assets/img/smp.png">
+                <img class="sekolah" src="assets/img/smk.png">
+            </article>
+        </section>
+
+        <section id="pengalaman">
+            <h2>Pengalaman</h2>
+            <article>
+                <h3>Pengalaman Kerja</h3>
+                <p>Saya telah bekerja pada berbagai proyek pengembangan web, baik secara individu maupun dalam tim, yang telah memperluas wawasan dan keterampilan saya.</p>
+            </article>
+        </section>
+
+        <section id="blog">
+            <h2>Blog</h2>
+            <article>
+                <h3>Artikel Terbaru</h3>
+                <p>Di blog ini, saya berbagi pemikiran, tips, dan tutorial seputar pengembangan web dan teknologi terbaru.</p>
+            </article>
+        </section>
+
+        <section id="kontak">
+            <h2>Kontak</h2>
+            <article>
+                <h3>Hubungi Saya</h3>
+                <p>Jika Anda memiliki pertanyaan atau ingin bekerja sama, jangan ragu untuk menghubungi saya melalui email atau media sosial.</p>
+            </article>
+        </section>
+    </main>
+    <footer>
+
+        <div class="card">
+    <img src="assets/img/kaoruko.jpg" alt="Foto Card">
+    <div class="card-body">
+    <h3>Judul Card</h3>
+    <p>Ini adalah deskripsi singkat mengenai isi dari card yang Anda buat di HTML dan CSS.</p>
+    <a href="" class="btn">Beli Sekarang</a>
+    </div>
+    </div>
+
+        <img class="waguri" src="assets/img/kaoruko.jpg">
+        <p>&copy; 2026 Muhamad Rizki Kusmiadi.</p>
+    </footer>
+
+    <script>
+        const navigationLinks = document.querySelectorAll('.nav a[href^="#"]');
+        let scrollAnimationFrame;
+
+        function animateScrollTo(target) {
+            const startPosition = window.scrollY;
+            const header = document.querySelector('.nav-container');
+            const headerIsSticky = header && getComputedStyle(header).position === 'sticky';
+            const offset = headerIsSticky ? header.getBoundingClientRect().height : 0;
+            const targetPosition = target.getBoundingClientRect().top + startPosition - offset;
+            const distance = targetPosition - startPosition;
+            const duration = 800;
+            const startTime = performance.now();
+
+            cancelAnimationFrame(scrollAnimationFrame);
+
+            function step(currentTime) {
+                const progress = Math.min((currentTime - startTime) / duration, 1);
+                const easedProgress = 1 - Math.pow(1 - progress, 3);
+
+                window.scrollTo(0, startPosition + distance * easedProgress);
+
+                if (progress < 1) {
+                    scrollAnimationFrame = requestAnimationFrame(step);
+                }
+            }
+
+            scrollAnimationFrame = requestAnimationFrame(step);
+        }
+
+        navigationLinks.forEach((link) => {
+            link.addEventListener('click', (event) => {
+                const target = document.querySelector(link.getAttribute('href'));
+
+                if (!target) {
+                    return;
+                }
+
+                event.preventDefault();
+                animateScrollTo(target);
+                history.pushState(null, '', link.getAttribute('href'));
+            });
+        });
+    </script>
+</body>
+</html>
